@@ -8,11 +8,11 @@ function useLocalStorage(key: string) {
     }
     return
   })
-  const setStorage = (value: string | number | Object) => {
+  const setStorage = (value: string | number | Object): void => {
     localStorage.setItem(key, JSON.stringify(value))
     setValue(value)
   }
-  return [value, setStorage]
+  return [value, setStorage] as const
 }
 
 export default useLocalStorage
