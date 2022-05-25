@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Itim', arial;
+}
+body {
+  background-color: #061118;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex-grow: 1;
+  margin-top: 130px;
+  padding-inline: 10vw;
+}
