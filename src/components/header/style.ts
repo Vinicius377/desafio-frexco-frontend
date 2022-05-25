@@ -1,6 +1,8 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/system'
 //prettier-ignore
 const Nav = styled("nav")(({ theme }) => `
+display:flex;
+padding-block:18px;
 a{
   color:white;
   margin-inline:${theme.spacing(2)};
@@ -15,4 +17,4 @@ a{
 `
 );
 
-export default Nav;
+export default Nav
