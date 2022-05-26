@@ -1,27 +1,29 @@
 import { Container, TextField, Button } from '@mui/material'
 import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import { ContextUser } from '../../context/user-context'
 import api from '../../services/api'
 
-window.document.title = 'Entrar'
 function Login() {
-  const { register, handleSubmit } = useForm()
+  window.document.title = 'Entrar'
+  const { register, handleSubmit, reset } = useForm()
   const { setToken, setUser } = useContext(ContextUser)
   const [err, setErr] = useState(false)
+  const navigate = useNavigate()
 
   const createProduct = handleSubmit(data => {
     if (!setUser || !setToken) {
       return
     }
-
     api
       .post('/login', data)
       .then(result => {
         setErr(false)
         setUser(result.data.data)
         setToken(result.data.token)
+        navigate('/')
       })
       .catch(e => {
         if (e.response.status == 401) {

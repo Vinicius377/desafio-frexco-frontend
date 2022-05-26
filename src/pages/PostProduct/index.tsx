@@ -1,20 +1,24 @@
 import { Container, TextField, Button } from '@mui/material'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+
 import { ContextProduct } from '../../context/product-context'
+import { ContextUser } from '../../context/user-context'
 import api from '../../services/api'
 
-interface NewProduct {
-  name: string
-  type: string
-  price: number
-  count: number
-  measure: string
-}
-
 function PostProduct() {
-  const { register, handleSubmit } = useForm()
+  window.document.title = 'Criar produto'
+
+  const { register, handleSubmit, reset } = useForm()
   const { setProduct, products } = useContext(ContextProduct)
+  const { user } = useContext(ContextUser)
+  const navigate = useNavigate()
+
+  if (!user || !user.isAdm) {
+    navigate('/')
+  }
 
   const createProduct = handleSubmit(data => {
     if (!setProduct) return
@@ -22,13 +26,16 @@ function PostProduct() {
       .post('/product', data)
       .then(result => {
         setProduct([...products, result.data])
+        toast.success('Produto adicionado!')
+        reset()
       })
       .catch(e => console.log(e))
   })
+
   return (
     <Container
       component="form"
-      sx={{ marginInline: 10, padding: 5, backgroundColor: '#F1F1F1' }}
+      sx={{ padding: 5, backgroundColor: '#F1F1F1' }}
       onSubmit={createProduct}
     >
       <h1>Cadastrar produto</h1>

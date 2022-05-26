@@ -1,11 +1,19 @@
-import { Container, TextField, Button } from '@mui/material'
+import {
+  Container,
+  TextField,
+  Button,
+  Switch,
+  FormControlLabel,
+} from '@mui/material'
 import { useForm } from 'react-hook-form'
-import api from '../../services/api'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
 
+import api from '../../services/api'
+
 function Signin() {
-  const { register, handleSubmit } = useForm()
+  window.document.title = 'Criar conta'
+  const { register, handleSubmit, reset } = useForm()
   const [err, setErr] = useState(false)
 
   const createProduct = handleSubmit(data => {
@@ -16,15 +24,21 @@ function Signin() {
     setErr(false)
     const sendData = {
       email: data.email,
-      password: data.passoword,
+      password: data.password,
       name: data.name,
+      isAdm: data.isAdm,
     }
+    console.log(sendData)
     api
       .post('/signin', sendData)
-      .then(result => {
-        toast.success('Usuário criado!')
+      .then(() => {
+        toast.success(`Usuário ${data.name} criado!`)
+        reset()
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        toast.error('Houve um erro')
+        console.log(e)
+      })
   })
   return (
     <Container
@@ -71,7 +85,13 @@ function Signin() {
           variant="standard"
           {...register('email')}
           label="Email"
+          type="email"
           required
+        />
+        <FormControlLabel
+          control={<Switch />}
+          label="É administrador?"
+          {...register('isAdm')}
         />
         <Button type="submit" variant="contained" color="success">
           Criar

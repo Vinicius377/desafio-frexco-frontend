@@ -7,7 +7,7 @@ import EditForm from '../edit-form'
 import Product from '../../types/product.t'
 import formatReal from '../../utils/formatReal'
 import api from '../../services/api'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ContextProduct } from '../../context/product-context'
 import { toast } from 'react-toastify'
 
@@ -16,8 +16,12 @@ interface Props {
 }
 function ItemStock({ data }: Props) {
   const { setProduct, products } = useContext(ContextProduct)
+  const [collapse, setCollapse] = useState(true)
 
-  const onEdit = () => {}
+  const onEdit = () => {
+    setCollapse(!collapse)
+  }
+
   const onDelete = (id: string) => {
     if (!setProduct) return
     api
@@ -28,7 +32,7 @@ function ItemStock({ data }: Props) {
         toast.warning('Produto deletado!')
       })
       .catch(e => {
-        console.log(e)
+        throw new Error(e)
       })
   }
 
@@ -38,9 +42,7 @@ function ItemStock({ data }: Props) {
         <TableCell sx={{ color: 'white', width: '30%' }}>{data.name}</TableCell>
         <TableCell sx={{ color: 'white' }}>{data.type}</TableCell>
         <TableCell sx={{ color: 'white' }}>{data.measure}</TableCell>
-        <TableCell sx={{ color: 'white' }}>
-          R$ {formatReal(data.price)}
-        </TableCell>
+        <TableCell sx={{ color: 'white' }}>{formatReal(data.price)}</TableCell>
         <TableCell sx={{ color: 'white' }}>{data.count}</TableCell>
         <TableCell>
           <div style={{ display: 'flex', gap: 5 }}>
@@ -57,7 +59,13 @@ function ItemStock({ data }: Props) {
           </div>
         </TableCell>
       </TableRow>
-      <EditForm product={data} />
+      {!collapse && (
+        <TableRow>
+          <TableCell size="small" colSpan={6}>
+            <EditForm product={data} />
+          </TableCell>
+        </TableRow>
+      )}
     </>
   )
 }

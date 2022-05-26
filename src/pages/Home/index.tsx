@@ -3,8 +3,8 @@ import { useContext } from 'react'
 import ItemProduct from '../../components/item-product'
 import { ContextProduct } from '../../context/product-context'
 
-window.document.title = 'Inicio'
 function Home() {
+  window.document.title = 'Inicio'
   const { products } = useContext(ContextProduct)
 
   return (
