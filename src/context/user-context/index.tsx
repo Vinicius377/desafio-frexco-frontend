@@ -27,6 +27,9 @@ function ProviderUser({ children }: Props) {
   const [token, setToken] = useLocalStorage('token')
 
   useEffect(() => {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  }, [token])
+  useEffect(() => {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
       api

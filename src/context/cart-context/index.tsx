@@ -27,9 +27,9 @@ interface Context {
   total?: number
 }
 
-const CartContext = createContext<Context>({})
+const ContextCart = createContext<Context>({})
 
-function CartContextProvider({ children }: Props) {
+function ProviderCart({ children }: Props) {
   const [cart, dispatchCart] = useReducer(CartReduce, [])
   const [total, setTotal] = useState(0)
   const { products } = useContext(ContextProduct)
@@ -52,11 +52,10 @@ function CartContextProvider({ children }: Props) {
   }, [cart])
 
   return (
-    <CartContext.Provider value={{ total, cart, dispatchCart }}>
+    <ContextCart.Provider value={{ total, cart, dispatchCart }}>
       {children}
-    </CartContext.Provider>
+    </ContextCart.Provider>
   )
 }
 
-export { CartContextProvider }
-export default CartContext
+export { ProviderCart, ContextCart }
