@@ -20,7 +20,7 @@ function EditForm({ product }: Props) {
       .then(() => {
         const newProductList = [...products]
         const indexById = products.findIndex(item => item.id === product.id)
-        if (indexById) return
+        if (!indexById) return
         newProductList[indexById] = { ...products[indexById], ...data }
         setProduct(newProductList)
       })

@@ -36,7 +36,7 @@ function Signin() {
         reset()
       })
       .catch(e => {
-        toast.error('Houve um erro')
+        toast.error(e.response.data.message)
         console.log(e)
       })
   })

@@ -1,39 +1,21 @@
-import { TableRow, TableCell, Button } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
+import { TableRow, TableCell, Button, Collapse } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
+import { useState } from 'react'
 
 import EditForm from '../edit-form'
+import DeleteButton from '../delete-button'
 
 import Product from '../../types/product.t'
 import formatReal from '../../utils/formatReal'
-import api from '../../services/api'
-import { useContext, useState } from 'react'
-import { ContextProduct } from '../../context/product-context'
-import { toast } from 'react-toastify'
 
 interface Props {
   data: Product
 }
 function ItemStock({ data }: Props) {
-  const { setProduct, products } = useContext(ContextProduct)
-  const [collapse, setCollapse] = useState(true)
+  const [collapsed, setCollapsed] = useState(true)
 
   const onEdit = () => {
-    setCollapse(!collapse)
-  }
-
-  const onDelete = (id: string) => {
-    if (!setProduct) return
-    api
-      .delete('/product', { data: { id } })
-      .then(() => {
-        const newProductList = products.filter(product => product.id !== id)
-        setProduct(newProductList)
-        toast.warning('Produto deletado!')
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
+    setCollapsed(!collapsed)
   }
 
   return (
@@ -46,26 +28,21 @@ function ItemStock({ data }: Props) {
         <TableCell sx={{ color: 'white' }}>{data.count}</TableCell>
         <TableCell>
           <div style={{ display: 'flex', gap: 5 }}>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => onDelete(data.id)}
-            >
-              <DeleteIcon />
-            </Button>
+            <DeleteButton id={data.id} name={data.name} />
+
             <Button variant="contained" color="primary" onClick={onEdit}>
               <EditIcon />
             </Button>
           </div>
         </TableCell>
       </TableRow>
-      {!collapse && (
-        <TableRow>
-          <TableCell size="small" colSpan={6}>
+      <TableRow>
+        <TableCell size="small" colSpan={6}>
+          <Collapse in={!collapsed}>
             <EditForm product={data} />
-          </TableCell>
-        </TableRow>
-      )}
+          </Collapse>
+        </TableCell>
+      </TableRow>
     </>
   )
 }
