@@ -7,13 +7,24 @@ import {
   TableBody,
 } from '@mui/material'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { ContextProduct } from '../../context/product-context'
+import { ContextUser } from '../../context/user-context'
 import ItemStock from '../../components/item-stock'
 
 function Stock() {
+  window.document.title = 'Estoque'
   const { products } = useContext(ContextProduct)
+  const { user } = useContext(ContextUser)
+
+  const navigate = useNavigate()
+
+  if (!user || !user.isAdm) {
+    navigate('/')
+  }
   return (
-    <TableContainer sx={{ maxHeight: 440 }}>
+    <TableContainer>
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
@@ -27,7 +38,7 @@ function Stock() {
         </TableHead>
         <TableBody>
           {products.map(product => {
-            return <ItemStock data={product} />
+            return <ItemStock data={product} key={product.id} />
           })}
         </TableBody>
       </Table>
