@@ -30,12 +30,13 @@ function Header() {
       <Nav>
         <NavLink to="/">Inicio</NavLink>
         {user ? (
-          <button onClick={SignOut}>Sair</button>
+          <a onClick={SignOut}>Sair</a>
         ) : (
           <NavLink to="/login">Entrar</NavLink>
         )}
         <NavLink to="/sigin">Cadastrar</NavLink>
-        {total && <h2>R$ {formatReal(total)}</h2>}
+        <NavLink to="/checkout">Carrinho</NavLink>
+        {total && <h2>{formatReal(total)}</h2>}
       </Nav>
       {user && (
         <div

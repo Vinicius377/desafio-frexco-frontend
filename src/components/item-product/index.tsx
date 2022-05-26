@@ -59,7 +59,7 @@ function ItemProduct({ data }: Props) {
           >
             <div>
               <h3>{data.measure}</h3>
-              <h2>Preço: R$ {formatReal(data.price)}</h2>
+              <h2>Preço: {formatReal(data.price)}</h2>
             </div>
             <h2>Estoque {data.count}</h2>
           </div>

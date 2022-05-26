@@ -1,6 +1,6 @@
 import types from './types'
 
-function increment(id: number) {
+function increment(id: string) {
   return {
     type: types.INCREMENT,
     payload: {
@@ -8,7 +8,7 @@ function increment(id: number) {
     },
   }
 }
-function decrement(id: number) {
+function decrement(id: string) {
   return {
     type: types.DECREMENT,
     payload: {

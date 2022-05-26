@@ -9,6 +9,7 @@ a{
   text-decoration:none;
   font-size:1.2rem;
   padding:5px;
+  cursor:pointer;
 }
 
 .active{
