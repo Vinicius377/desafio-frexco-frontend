@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import Signin from './pages/Signin'
 import Header from './components/header'
+
+import Signin from './pages/Signin'
 import PostProduct from './pages/PostProduct'
 import Home from './pages/Home'
 import Stock from './pages/Stock'

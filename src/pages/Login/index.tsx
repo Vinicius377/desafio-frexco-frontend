@@ -53,6 +53,7 @@ function Login() {
           {...register('email')}
           label="Email"
           required
+          type="email"
           error={err}
           helperText={err && 'Email ou senha inválidos!'}
         />

@@ -15,3 +15,14 @@ main {
   margin-top: 130px;
   padding-inline: 10vw;
 }
+
+@media (max-width: 650px) {
+  main {
+    padding-inline: 5vw;
+  }
+}
+@media (max-width: 400px) {
+  main {
+    padding-inline: 2vw;
+  }
+}
