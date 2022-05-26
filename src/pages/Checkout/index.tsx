@@ -13,13 +13,14 @@ import { toast } from 'react-toastify'
 import { ContextCart } from '../../context/cart-context'
 import { ContextProduct } from '../../context/product-context'
 import { ContextUser } from '../../context/user-context'
+import { clear } from '../../context/cart-context/actions'
 
 import ItemCheckout from '../../components/item-checkout'
 import formatReal from '../../utils/formatReal'
 import api from '../../services/api'
 
 function Checkout() {
-  const { cart, total } = useContext(ContextCart)
+  const { cart, total, dispatchCart } = useContext(ContextCart)
   const { products } = useContext(ContextProduct)
   const { user } = useContext(ContextUser)
 
@@ -31,11 +32,12 @@ function Checkout() {
   })
 
   const onBuy = async () => {
+    if (!dispatchCart) return
     api
       .post('/buy', { cart })
       .then(result => {
-        console.log(result)
-        itensCart = []
+        toast.success('Itens comprados!')
+        dispatchCart(clear())
       })
       .catch(e => {
         if (e.response.status == 401) {

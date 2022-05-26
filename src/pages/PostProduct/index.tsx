@@ -60,6 +60,7 @@ function PostProduct() {
             {...register('count')}
             label="Quantidade"
             required
+            type="number"
           />
           <TextField
             variant="standard"

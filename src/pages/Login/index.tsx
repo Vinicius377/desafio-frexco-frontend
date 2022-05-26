@@ -8,11 +8,14 @@ import api from '../../services/api'
 
 function Login() {
   window.document.title = 'Entrar'
-  const { register, handleSubmit, reset } = useForm()
-  const { setToken, setUser } = useContext(ContextUser)
+  const { register, handleSubmit } = useForm()
+  const { setToken, setUser, user } = useContext(ContextUser)
   const [err, setErr] = useState(false)
   const navigate = useNavigate()
 
+  if (user) {
+    navigate('/')
+  }
   const createProduct = handleSubmit(data => {
     if (!setUser || !setToken) {
       return

@@ -45,6 +45,7 @@ function EditForm({ product }: Props) {
           variant="standard"
           {...register('count')}
           label="Quantidade"
+          type="number"
           defaultValue={product.count}
         />
         <TextField

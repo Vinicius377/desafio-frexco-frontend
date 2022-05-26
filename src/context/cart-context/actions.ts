@@ -16,5 +16,8 @@ function decrement(id: string) {
     },
   }
 }
+function clear() {
+  return { type: types.CLEAR, payload: { id: '' } }
+}
 
-export { increment, decrement }
+export { increment, decrement, clear }

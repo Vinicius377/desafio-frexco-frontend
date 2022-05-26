@@ -52,6 +52,9 @@ const CartReduce: Reducer<CartCheckout[], Action> = (
       setProduct(newArrProduct)
       newArrCart[indexById] = { id: action.payload.id, count: countValue - 1 }
       return newArrCart
+
+    case types.CLEAR:
+      return []
     default:
       return state
   }
