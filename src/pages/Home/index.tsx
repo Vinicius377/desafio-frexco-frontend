@@ -10,11 +10,13 @@ function Home() {
   return (
     <>
       <Grid container spacing={1}>
-        {products.map(product => (
-          <Grid item xs={12} sm={6} md={4} key={product.id}>
-            <ItemProduct data={product} />
-          </Grid>
-        ))}
+        {products
+          .filter(product => product.count > 0)
+          .map(product => (
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <ItemProduct data={product} />
+            </Grid>
+          ))}
       </Grid>
     </>
   )

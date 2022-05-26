@@ -8,10 +8,10 @@ import { ProviderCart } from './context/cart-context'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <ProviderProduct>
-    <ProviderCart>
-      <ProviderUser>
+    <ProviderUser>
+      <ProviderCart>
         <App />
-      </ProviderUser>
-    </ProviderCart>
+      </ProviderCart>
+    </ProviderUser>
   </ProviderProduct>
 )

@@ -17,28 +17,29 @@ interface Props {
 function ItemProduct({ data }: Props) {
   const { dispatchCart, cart } = useContext(ContextCart)
   const { products } = useContext(ContextProduct)
-  const productCart = cart?.find(product => product.id === data.id)
 
-  const addToCart = (id: string) => {
+  const productCart = cart?.find(product => product.id === data.id)
+  const product = products.find(product => product.id === data.id)
+
+  const addToCart = () => {
     if (!dispatchCart) return
 
-    const product = products.find(product => product.id === id)
     if (!product) return
 
-    if (product?.count < 1) {
+    if (product?.count === productCart?.count) {
       toast.warning(`Não tem mais ${data.name} no estoque`)
       return
     }
 
-    dispatchCart(increment(id))
+    dispatchCart(increment(data.id))
     toast.success(`${data.name} foi adicionado ao carrinho!`)
   }
-  const removeToCart = (id: string) => {
+  const removeToCart = () => {
     if (!dispatchCart) return
 
     if (!productCart) return
 
-    dispatchCart(decrement(id))
+    dispatchCart(decrement(data.id))
     toast.warning(`${data.name} foi removido do carrinho!`)
   }
 
@@ -65,18 +66,10 @@ function ItemProduct({ data }: Props) {
           </div>
         </CardContent>
         <CardActions>
-          <Button
-            color="success"
-            variant="contained"
-            onClick={() => addToCart(data.id)}
-          >
+          <Button color="success" variant="contained" onClick={addToCart}>
             Adicionar <AddShoppingCartIcon sx={{ marginLeft: 5 }} />
           </Button>
-          <Button
-            color="warning"
-            variant="contained"
-            onClick={() => removeToCart(data.id)}
-          >
+          <Button color="warning" variant="contained" onClick={removeToCart}>
             <RemoveCircleSharpIcon />
           </Button>
         </CardActions>

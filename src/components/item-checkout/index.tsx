@@ -15,24 +15,26 @@ interface Props {
 }
 
 function ItemCheckout({ data }: Props) {
-  const { dispatchCart } = useContext(ContextCart)
+  const { dispatchCart, cart } = useContext(ContextCart)
   const { products } = useContext(ContextProduct)
 
-  const addItem = (id: string) => {
+  const product = products.find(product => product.id === data.id)
+  const productCart = cart?.find(product => product.id === data.id)
+
+  const addItem = () => {
     if (!dispatchCart) return
 
-    const product = products.find(product => product.id === id)
     if (!product) return
 
-    if (product?.count < 1) {
+    if (product?.count === productCart?.count) {
       toast.warning(`Não tem mais ${data.name} no estoque`)
       return
     }
-    dispatchCart(increment(id))
+    dispatchCart(increment(data.id))
   }
-  const removeItem = (id: string) => {
+  const removeItem = () => {
     if (!dispatchCart) return
-    dispatchCart(decrement(id))
+    dispatchCart(decrement(data.id))
   }
   return (
     <TableRow key={data.id}>
@@ -43,18 +45,10 @@ function ItemCheckout({ data }: Props) {
       <TableCell sx={{ color: 'white' }}>{data.count}</TableCell>
       <TableCell>
         <div style={{ display: 'flex', gap: 5 }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => addItem(data.id)}
-          >
+          <Button variant="contained" color="success" onClick={addItem}>
             <AddCircleIcon />
           </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => removeItem(data.id)}
-          >
+          <Button variant="contained" color="error" onClick={removeItem}>
             <RemoveCircleSharpIcon />
           </Button>
         </div>

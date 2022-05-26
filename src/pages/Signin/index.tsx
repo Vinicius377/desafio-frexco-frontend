@@ -28,7 +28,7 @@ function Signin() {
       name: data.name,
       isAdm: data.isAdm,
     }
-    console.log(sendData)
+
     api
       .post('/signin', sendData)
       .then(() => {
