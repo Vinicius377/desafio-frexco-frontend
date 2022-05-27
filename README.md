@@ -27,7 +27,7 @@ Você foi contratado para criar uma aplicação de controle de estoque. Cada vez
 
 ## Como rodar 🚀
 
-- Pasta do Back-end
+- [Pasta do Back-end](https://github.com/Vinicius377/desafio-frexco-backend)
 
   - Abra o diretório do back-end em um terminal
   - Execute ` npm install` para baixar as dependências
