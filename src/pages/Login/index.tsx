@@ -3,6 +3,7 @@ import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+import InputPassword from '../../components/input-password'
 import { ContextUser } from '../../context/user-context'
 import api from '../../services/api'
 
@@ -60,16 +61,12 @@ function Login() {
           error={err}
           helperText={err && 'Email ou senha inválidos!'}
         />
-        <TextField
-          variant="standard"
-          {...register('password')}
+        <InputPassword
+          err={err}
+          errLabel={err ? 'Email ou senha inválidos!' : ''}
+          register={register('password')}
           label="Senha"
-          type="password"
-          required
-          error={err}
-          helperText={err && 'Email ou senha inválidos!'}
         />
-
         <Button type="submit" variant="contained" color="success">
           Entrar
         </Button>

@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
 
+import InputPassword from '../../components/input-password'
 import api from '../../services/api'
 
 function Signin() {
@@ -63,24 +64,19 @@ function Signin() {
           fullWidth
         />
 
-        <TextField
-          variant="standard"
-          {...register('password')}
+        <InputPassword
+          err={err}
           label="Senha"
-          type="password"
-          required
-          error={err}
-          helperText={err && 'As senhas não são iguais!'}
+          errLabel={err ? 'As senhas não são iguais!' : ''}
+          register={register('password')}
         />
-        <TextField
-          variant="standard"
-          {...register('passwordComf')}
+        <InputPassword
+          err={err}
           label="Confirmar senha"
-          type="password"
-          error={err}
-          helperText={err && 'As senhas não são iguais!'}
-          required
+          errLabel={err ? 'As senhas não são iguais!' : ''}
+          register={register('passwordComf')}
         />
+
         <TextField
           variant="standard"
           {...register('email')}

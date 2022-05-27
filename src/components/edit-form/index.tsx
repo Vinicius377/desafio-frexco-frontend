@@ -1,6 +1,7 @@
 import { Container, TextField, Button } from '@mui/material'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { ContextProduct } from '../../context/product-context'
 import api from '../../services/api'
 import Product from '../../types/product.t'
@@ -18,6 +19,7 @@ function EditForm({ product }: Props) {
     api
       .put('/product', { ...data, id: product.id })
       .then(() => {
+        toast.success(`${product.name} alterado com sucesso!`)
         const newProductList = [...products]
         const indexById = products.findIndex(item => item.id === product.id)
         if (!indexById) return
