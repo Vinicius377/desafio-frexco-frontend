@@ -1,14 +1,13 @@
 import { Card, CardContent, CardActions, Button, Badge } from '@mui/material'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import RemoveCircleSharpIcon from '@mui/icons-material/RemoveCircleSharp'
+import { AddShoppingCart, RemoveCircleSharp } from '@mui/icons-material'
 import { useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import Product from '../../types/product.t'
 import formatReal from '../../utils/formatReal'
 import { ContextCart } from '../../context/cart-context'
-import { increment, decrement } from '../../context/cart-context/actions'
 import { ContextProduct } from '../../context/product-context'
+import { increment, decrement } from '../../context/cart-context/actions'
 
 interface Props {
   data: Product
@@ -67,10 +66,10 @@ function ItemProduct({ data }: Props) {
         </CardContent>
         <CardActions>
           <Button color="success" variant="contained" onClick={addToCart}>
-            Adicionar <AddShoppingCartIcon sx={{ marginLeft: 5 }} />
+            Adicionar <AddShoppingCart sx={{ marginLeft: 5 }} />
           </Button>
           <Button color="warning" variant="contained" onClick={removeToCart}>
-            <RemoveCircleSharpIcon />
+            <RemoveCircleSharp />
           </Button>
         </CardActions>
       </Card>

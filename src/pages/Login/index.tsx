@@ -30,7 +30,7 @@ function Login() {
         navigate('/')
       })
       .catch(e => {
-        if (e.response.status == 401) {
+        if (e.response.status === 401) {
           setErr(true)
           return
         }
@@ -43,7 +43,7 @@ function Login() {
       sx={{ padding: 5, backgroundColor: '#F1F1F1' }}
       onSubmit={createProduct}
     >
-      <h1>Login</h1>
+      <h1>Entrar</h1>
       <section
         style={{
           padding: 10,

@@ -1,4 +1,11 @@
-import { createContext, Dispatch, ReactNode, useEffect, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useEffect,
+  useState,
+  SetStateAction,
+} from 'react'
 import api from '../../services/api'
 import Product from '../../types/product.t'
 
@@ -16,12 +23,14 @@ const initialValue: Product[] = [
     id: '',
   },
 ]
-interface ContextProduct {
+interface ContextProductI {
   products: Product[]
-  setProduct?: Dispatch<Product[]>
+  setProduct?: Dispatch<SetStateAction<Product[]>>
 }
 
-const ContextProduct = createContext<ContextProduct>({ products: initialValue })
+const ContextProduct = createContext<ContextProductI>({
+  products: initialValue,
+})
 
 function ProviderProduct({ children }: Props) {
   const [products, setProduct] = useState<Product[]>(initialValue)

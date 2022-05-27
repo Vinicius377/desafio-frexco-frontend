@@ -1,6 +1,5 @@
 import { TableCell, TableRow, Button } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import RemoveCircleSharpIcon from '@mui/icons-material/RemoveCircleSharp'
+import { AddCircle, RemoveCircleSharp } from '@mui/icons-material'
 import { useContext } from 'react'
 import { toast } from 'react-toastify'
 
@@ -46,10 +45,10 @@ function ItemCheckout({ data }: Props) {
       <TableCell>
         <div style={{ display: 'flex', gap: 5 }}>
           <Button variant="contained" color="success" onClick={addItem}>
-            <AddCircleIcon />
+            <AddCircle />
           </Button>
           <Button variant="contained" color="error" onClick={removeItem}>
-            <RemoveCircleSharpIcon />
+            <RemoveCircleSharp />
           </Button>
         </div>
       </TableCell>

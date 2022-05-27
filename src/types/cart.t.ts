@@ -1,4 +1,4 @@
-export default interface CartCheckout {
+export default interface CartCheckoutI {
   id: string
   count: number
 }

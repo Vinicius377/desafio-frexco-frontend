@@ -21,7 +21,7 @@ import api from '../../services/api'
 
 function Checkout() {
   const { cart, total, dispatchCart } = useContext(ContextCart)
-  const { products } = useContext(ContextProduct)
+  const { products, setProduct } = useContext(ContextProduct)
   const { user } = useContext(ContextUser)
 
   let itensCart = cart?.map(item => {
@@ -33,14 +33,31 @@ function Checkout() {
 
   const onBuy = async () => {
     if (!dispatchCart) return
+    if (!setProduct) return
+
     api
       .post('/buy', { cart })
       .then(result => {
         toast.success('Itens comprados!')
+        if (!setProduct) return
+        setProduct(prevState => {
+          cart?.forEach(item => {
+            const indexById = products.findIndex(
+              product => product.id === item.id
+            )
+            if (indexById === undefined) return
+            console.log('chegou')
+            prevState[indexById] = {
+              ...prevState[indexById],
+              count: prevState[indexById].count - item.count,
+            }
+          })
+          return prevState
+        })
         dispatchCart(clear())
       })
       .catch(e => {
-        if (e.response.status == 401) {
+        if (e.response.status === 401) {
           toast.error('Faça o login antes de comprar!')
           throw new Error(e)
         }

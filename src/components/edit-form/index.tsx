@@ -19,12 +19,13 @@ function EditForm({ product }: Props) {
     api
       .put('/product', { ...data, id: product.id })
       .then(() => {
+        setProduct(prevState => {
+          const indexById = products.findIndex(item => item.id === product.id)
+          if (indexById === undefined) return prevState
+          prevState[indexById] = { ...prevState[indexById], ...data }
+          return prevState
+        })
         toast.success(`${product.name} alterado com sucesso!`)
-        const newProductList = [...products]
-        const indexById = products.findIndex(item => item.id === product.id)
-        if (!indexById) return
-        newProductList[indexById] = { ...products[indexById], ...data }
-        setProduct(newProductList)
       })
       .catch(e => console.log(e))
   })
